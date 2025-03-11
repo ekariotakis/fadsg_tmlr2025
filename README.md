@@ -8,7 +8,7 @@ Dense subgraph discovery (DSD) is a key graph mining primitive with myriad appli
 
 ### Summary of our contributions
 - We introduce two *tractable* formulations for fair DSD that are capable of accommodating *variable fairness levels*. This enables flexible selection across a spectrum of target fairness levels, enhancing the applicability of the formulations.
-- We analyze the inherent trade-off between subgraph density and target fairness for a difficult example using the *price of fairness*. Our results indicate that enhancing fairness can significantly reduce density, regardless of the algorithm used.
+- We analyze the inherent trade-off between subgraph density and target fairness for a difficult example using the *price of fairness* measure. Our results indicate that enhancing fairness can significantly reduce density, regardless of the algorithm used.
 - Through extensive experiments on diverse datasets, we demonstrate *superior performance* and *practical utility* of our formulations over existing approaches. 
 
 ## File Arrangement
