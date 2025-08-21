@@ -23,6 +23,6 @@ Here we summarize all files present in this repo and their purpose.
 +-- init_graph.py: initialize graph and create protected group
 +-- plot_reg_path.ipynb: create plots of regularization paths
 +-- run_bisection.py: compute densest subgraph for a target fairness level (given a formulation and a dataset)
-+-- super_greedy_pp.py: our implementation of the SuperGreedy++ algorithm
++-- super_greedy_pp.py: our new O(m+nlogn) implementation of the SuperGreedy++ algorithm
 +-- utils.py: some general utils
 ```
