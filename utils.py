@@ -1,11 +1,7 @@
 from re import X
 import networkx as nx
-import copy
 import numpy as np
 from super_greedy_pp import *
-import colorsys
-import matplotlib
-from datetime import datetime
 
 
 def color_protected(G, protected_nodes, print_=False):

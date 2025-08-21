@@ -1,26 +1,10 @@
-# %%
 import os
 import copy
 import numpy as np
 import networkx as nx
-# from dsd import *
-import dsd
-# from my_dsp import *
 from super_greedy_pp import *
 import utils
-from datetime import datetime
-import matplotlib.pyplot as plt 
-import matplotlib
-# %matplotlib inline 
-
-from tqdm import tqdm
-
-import random
-import inspect
-
 import csv
-
-import argparse
 
 def init_graph(dataset_name, formulation, protected_class=1.0):
 
@@ -398,6 +382,5 @@ def init_graph(dataset_name, formulation, protected_class=1.0):
     blue_nodes, red_nodes = utils.color_protected(G, protected_nodes) # blue = protected
 
     protected_density = utils.compute_density(protected_nodes, G)
-        
    
     return G, protected_nodes, lam_max

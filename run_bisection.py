@@ -1,26 +1,12 @@
-# %%
 import os
 import copy
 import numpy as np
 import networkx as nx
-# from dsd import *
 import dsd
-# from my_dsp import *
 from super_greedy_pp import *
 from init_graph import *
 import utils
-from datetime import datetime
-import matplotlib.pyplot as plt 
-import matplotlib
-# %matplotlib inline 
-
 from tqdm import tqdm
-
-import random
-import inspect
-
-import csv
-
 import argparse
 
 def main():
@@ -40,26 +26,12 @@ def main():
     protected_class = copy.deepcopy(args.protected_class)
     epsilon = copy.deepcopy(args.epsilon)
 
-    # %%
     G, protected_nodes, lam_max = init_graph(dataset_name, formulation, protected_class)
 
     n = G.number_of_nodes()
     print('Number of Nodes:', n)
     m = G.number_of_edges()
     print('Number of Edges:', m)
-
-    # %%
-    
-    # T=5
-    # super_greedy_pp_R = super_greedy_pp(G, T, protected_nodes, lam=0, weight=None, formulation=formulation)
-    # super_greedy_pp_R_nodes = list(super_greedy_pp_R[0].nodes())
-    # super_greedy_pp_R_nodes.sort()
-    # density_0 =  utils.compute_density(super_greedy_pp_R[0])
-
-    # print('flowless method')
-    # start = datetime.now()
-    # flowless_R = dsd.flowless(G, 5)
-    # density_0 = flowless_R[1]
 
     exact_R = dsd.exact_densest(G)
     exact_R[0].sort()
@@ -86,7 +58,6 @@ def main():
     protected_portion_in_sub_vec = []
     protected_portion_in_prot_vec = []
     PoF_vec = []
-    LB_UB_vec = []
     fairness_vec = []
     r_vec = []
 
@@ -97,34 +68,32 @@ def main():
         protected_nodes_all = copy.deepcopy(protected_nodes)
 
         super_greedy_pp_R = super_greedy_pp(G, T, protected_nodes, lam=lam_mid, weight=None, formulation=formulation)
-        super_greedy_pp_R_nodes = list(super_greedy_pp_R[0].nodes())
+        super_greedy_pp_R_G = G.subgraph(super_greedy_pp_R[0])
+        super_greedy_pp_R_nodes = list(super_greedy_pp_R_G.nodes())
         super_greedy_pp_R_nodes.sort()
 
         induced_protected_nodes = super_greedy_pp_R[2]
         
         num_of_nodes.append(len(super_greedy_pp_R_nodes))
         
-        density =  utils.compute_density(super_greedy_pp_R[0])
+        density =  utils.compute_density(super_greedy_pp_R_G)
         density_vec.append(density)  
 
         PoF = 1 - density/density_0
         PoF_vec.append(PoF)
-
-        LB_UB = super_greedy_pp_R[3]
-        LB_UB_vec.append(LB_UB)
         
         fairness = utils.find_num_common(super_greedy_pp_R_nodes, protected_nodes)
         fairness_vec.append(fairness)
 
         num_of_protected = len(induced_protected_nodes)
         num_of_protected_vec.append(num_of_protected)
-        protected_portion_in_sub = num_of_protected/len(super_greedy_pp_R[0])
+        protected_portion_in_sub = num_of_protected/len(super_greedy_pp_R_G)
         protected_portion_in_sub_vec.append(protected_portion_in_sub)
         protected_portion_in_prot = num_of_protected/len(protected_nodes)
         protected_portion_in_prot_vec.append(protected_portion_in_prot)
 
 
-        r = utils.compute_r(super_greedy_pp_R[0], protected_nodes_all, induced_protected_nodes, formulation=formulation)
+        r = utils.compute_r(super_greedy_pp_R_G, protected_nodes_all, induced_protected_nodes, formulation=formulation)
         if formulation==1:
             Psi = r-alpha
         elif formulation==2:
@@ -145,12 +114,8 @@ def main():
 
     
     # Save Variables in Dictionary
-    r_0=[]
-    r_max=[]
     variables_dict = {
         'alpha': alpha,
-        'r_0': r_0,
-        'r_max': r_max,
         'lam': lam_vec,
         'lam_mid': lam_mid_vec,
         'induced': super_greedy_pp_R,
@@ -159,16 +124,13 @@ def main():
         'Psi': Psi_vec,
         'r': r_vec,
         'max_iters': max_iters,
-        'lam': lam_vec,
-        'induced': super_greedy_pp_R,
         'num_of_nodes': num_of_nodes,
         'density': density_vec,
         'num_of_protected': num_of_protected_vec,
         'protected_portion_in_sub': protected_portion_in_sub_vec,
         'protected_portion_in_prot': protected_portion_in_prot_vec,
         'PoF': PoF_vec,
-        'fairness': fairness_vec,
-        'LB_UB': LB_UB_vec
+        'fairness': fairness_vec
     }
 
     if "amazon" in dataset_name:
