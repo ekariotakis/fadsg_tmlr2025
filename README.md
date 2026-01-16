@@ -1,8 +1,11 @@
 # Fairness-Aware Dense Subgraph Discovery
 
-This is a code repository for our publication in Transactions on Machine Learning Research (TMLR).
+[![paper](https://img.shields.io/badge/Paper-OpenReview.net-red)](https://openreview.net/forum?id=7rqV7Cb67L)
+&nbsp;
 
-Kariotakis, E., Sidiropoulos, N. D., & Konar, A. (2025). Fairness-Aware Dense Subgraph Discovery. Transactions on Machine Learning Research. https://openreview.net/forum?id=7rqV7Cb67L
+This is a public code repository for our publication in Transactions on Machine Learning Research (TMLR):
+> [**Fairness-Aware Dense Subgraph Discovery**](https://openreview.net/forum?id=7rqV7Cb67L)<br>
+> Emmanouil Kariotakis, Nicholas D Sidiropoulos, Aritra Konar (2025) <br>
 
 ## Abstract
 Dense subgraph discovery (DSD) is a key graph mining primitive with myriad applications including finding densely connected communities which are diverse in their vertex composition. In such a context, it is desirable to extract a dense subgraph that provides fair representation of the diverse subgroups that constitute the vertex set while incurring a small loss in terms of subgraph density. Existing methods for promoting fairness in DSD have important limitations - the associated formulations are NP-hard in the worst case and they do not provide flexible notions of fairness, making it non-trivial to analyze the inherent trade-off between density and fairness. In this paper, we introduce two tractable formulations for fair DSD, each offering a different notion of fairness. Our methods provide a structured and flexible approach to incorporate fairness, accommodating varying fairness levels. We introduce the fairness-induced relative loss in subgraph density as a price of fairness measure to quantify the associated trade-off. We are the first to study such a notion in the context of detecting fair dense subgraphs. Extensive experiments on real-world datasets demonstrate that our methods not only match but frequently outperform existing solutions, sometimes incurring even less than half the subgraph density loss compared to prior art, while achieving the target fairness levels. Importantly, they excel in scenarios that previous methods fail to adequately handle, i.e., those with extreme subgroup imbalances, highlighting their effectiveness in extracting fair and dense solutions.
